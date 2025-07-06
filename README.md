@@ -21,7 +21,7 @@ NANTI BAKAL MUNCUL SUARA MISTERIUS SAAT DI AKSES
 ## 📞 Support
 
 PUNYA MASALAH ?
-- 📧 [Contact Gmail]
+- 📧Gmail
 arbyakhsan.n@gmail.com
 
 ---
