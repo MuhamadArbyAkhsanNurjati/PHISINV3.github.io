@@ -18,17 +18,12 @@ NANTI BAKAL MUNCUL SUARA MISTERIUS SAAT DI AKSES
 
 - ✅ ALL Browser
 
-## 📱 Mobile Responsive
-
 ## 📞 Support
 
 PUNYA MASALAH ?
-- 🐛 [Report bugs](https://github.com/yourusername/tredict-website/issues)
-- 💡 [Request features](https://github.com/yourusername/tredict-website/issues)
-- 📧 [Contact us](arbyakhsan.n@gmail.com)
+- 📧 [Contact Gmail]
+arbyakhsan.n@gmail.com
 
 ---
-
 **Made x9x**
-
 🚀
