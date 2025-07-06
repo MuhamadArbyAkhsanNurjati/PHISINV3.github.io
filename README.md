@@ -8,7 +8,7 @@ NANTI BAKAL MUNCUL SUARA MISTERIUS SAAT DI AKSES
 
 ## 🛠️ Technologies Used
 
-- **HTML** -
+- **HTML**
 
 ## 🚀 CARA JALANIN
 **BUKA SAJA UNTUK MELIHAT NANTI DOWNLOAD FILE INDEX NYA UNTUK DI EDIT VERSI KALIAN**
@@ -27,3 +27,6 @@ PUNYA MASALAH ?
 ---
 **Made x9x**
 🚀
+
+# CONTOH KALAU MAU LIAT 
+# https://arby884.github.io/EDUKASI.github.io/
