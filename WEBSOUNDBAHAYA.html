@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tredict Website</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+
+  <!-- ======= EXTRA STYLES (tidak mengubah kode asli) ======= -->
+  <style id="extra-styles">
+    /* Gradient animated background */
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      background-size: 400% 400%;
+      animation: bgMove 18s ease infinite;
+    }
+    @keyframes bgMove { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+
+    /* Glow + scale on hover untuk semua tombol */
+    button:hover {
+      transform: translateY(-2px) scale(1.05);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.4), 0 0 4px rgba(255, 255, 255, 0.1) inset;
+    }
+
+    /* Focus outline input lebih keren */
+    input:focus {
+      outline: none !important;
+      box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.6);
+    }
+
+    /* Card faint glow */
+    .bg-\[\#111827\] {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      transition: box-shadow 0.3s ease;
+    }
+    .bg-\[\#111827\]:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55);
+    }
+
+    /* Title subtle glow */
+    h1 {
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    /* Marquee styling */
+    .marquee {
+      overflow: hidden;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marqueeAnim 14s linear infinite;
+    }
+    @keyframes marqueeAnim { 0%{transform:translate(0,0)} 100%{transform:translate(-100%,0)} }
+
+    /* Simple "playing" effect – sedikit hue shift saat audio berjalan */
+    body.playing {
+      animation: bgMove 18s ease infinite, hueShift 8s ease-in-out infinite;
+    }
+    @keyframes hueShift { 0%{filter:hue-rotate(0deg)} 50%{filter:hue-rotate(20deg)} 100%{filter:hue-rotate(0deg)} }
+  </style>
+  <!-- ===== END EXTRA STYLES ===== -->
+
+  <!-- ======= NASA THEME STYLES (tambahan, tidak mengubah kode asli) ======= -->
+  <style id="nasa-theme">
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&display=swap');
+    
+    /* Epic space background with moving stars */
+    body {
+      background: 
+        radial-gradient(ellipse at center, rgba(0, 32, 128, 0.9) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 69, 0, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 20% 80%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+        linear-gradient(135deg, #000814 0%, #001d3d 25%, #003566 50%, #000814 75%, #001122 100%);
+      background-size: 100% 100%, 60% 60%, 60% 60%, 400% 400%;
+      background-position: center, 80% 20%, 20% 80%, 0% 50%;
+      animation: cosmicMove 20s ease infinite, starField 30s linear infinite;
+      position: relative;
+      overflow-x: hidden;
+    }
+    
+    /* Animated cosmic background */
+    @keyframes cosmicMove {
+      0% { background-position: center, 80% 20%, 20% 80%, 0% 50%; }
+      25% { background-position: center, 70% 30%, 30% 70%, 100% 50%; }
+      50% { background-position: center, 90% 10%, 10% 90%, 50% 100%; }
+      75% { background-position: center, 60% 40%, 40% 60%, 0% 0%; }
+      100% { background-position: center, 80% 20%, 20% 80%, 0% 50%; }
+    }
+    
+    /* Floating stars */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+        radial-gradient(2px 2px at 40px 70px, #ffffff, transparent),
+        radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+        radial-gradient(1px 1px at 130px 80px, #ffffff, transparent),
+        radial-gradient(2px 2px at 160px 30px, #ffffff, transparent);
+      background-repeat: repeat;
+      background-size: 200px 150px;
+      animation: twinkle 4s ease-in-out infinite alternate;
+      z-index: -1;
+    }
+    
+    @keyframes twinkle {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.8; }
+    }
+    
+    /* NASA-style fonts */
+    body {
+      font-family: 'Rajdhani', sans-serif !important;
+      font-weight: 500;
+    }
+    
+    h1 {
+      font-family: 'Orbitron', monospace !important;
+      font-weight: 900 !important;
+      color: #ffffff !important;
+      text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 20px rgba(0, 123, 255, 0.3),
+        0 0 30px rgba(0, 123, 255, 0.2) !important;
+      letter-spacing: 2px;
+    }
+    
+    /* Futuristic cards with holographic effect */
+    .bg-\[\#111827\] {
+      background: linear-gradient(135deg, 
+        rgba(0, 32, 128, 0.4) 0%, 
+        rgba(0, 64, 128, 0.2) 25%,
+        rgba(0, 32, 64, 0.4) 50%,
+        rgba(0, 16, 32, 0.6) 100%) !important;
+      border: 2px solid rgba(0, 123, 255, 0.3) !important;
+      backdrop-filter: blur(15px) !important;
+      box-shadow: 
+        0 8px 32px rgba(0, 123, 255, 0.15),
+        inset 0 2px 4px rgba(255, 255, 255, 0.1),
+        0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .bg-\[\#111827\]::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      animation: hologramScan 3s ease-in-out infinite;
+    }
+    
+    @keyframes hologramScan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .bg-\[\#111827\]:hover {
+      border-color: rgba(0, 191, 255, 0.6) !important;
+      box-shadow: 
+        0 12px 48px rgba(0, 191, 255, 0.25),
+        inset 0 2px 8px rgba(255, 255, 255, 0.15),
+        0 0 0 2px rgba(0, 191, 255, 0.3) !important;
+      transform: translateY(-2px) !important;
+    }
+    
+    /* NASA-style inputs */
+    input {
+      background: linear-gradient(135deg, 
+        rgba(0, 32, 64, 0.6) 0%, 
+        rgba(0, 16, 32, 0.8) 100%) !important;
+      border: 2px solid rgba(255, 140, 0, 0.6) !important;
+      color: #ffffff !important;
+      font-family: 'Rajdhani', sans-serif !important;
+      font-size: 16px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.5px !important;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.6) !important;
+      font-weight: 400 !important;
+    }
+    
+    input:focus {
+      border-color: rgba(255, 165, 0, 0.9) !important;
+      box-shadow: 
+        0 0 0 3px rgba(255, 165, 0, 0.3),
+        0 0 20px rgba(255, 165, 0, 0.2),
+        inset 0 2px 4px rgba(255, 165, 0, 0.1) !important;
+      background: linear-gradient(135deg, 
+        rgba(0, 48, 96, 0.7) 0%, 
+        rgba(0, 24, 48, 0.9) 100%) !important;
+    }
+    
+    /* Mission control buttons */
+    button {
+      font-family: 'Orbitron', monospace !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 1px !important;
+      position: relative !important;
+      overflow: hidden !important;
+      border: 2px solid transparent !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+    }
+    
+    button:hover::before {
+      left: 100%;
+    }
+    
+    /* Specific button styles */
+    .bg-red-600 {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%) !important;
+      border-color: rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4) !important;
+    }
+    
+    .bg-red-600:hover {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+      border-color: rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 8px 25px rgba(220, 38, 38, 0.6) !important;
+    }
+    
+    .bg-sky-600 {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0369a1 100%) !important;
+      border-color: rgba(255, 255, 255, 0.2) !important;
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4) !important;
+    }
+    
+    .bg-sky-600:hover {
+      background: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 100%) !important;
+      border-color: rgba(255, 255, 255, 0.4) !important;
+      box-shadow: 0 8px 25px rgba(14, 165, 233, 0.6) !important;
+    }
+    
+    /* Mission status display */
+    .text-gray-200 {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3) !important;
+    }
+    
+    .text-gray-300 {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-weight: 500 !important;
+    }
+    
+    /* Enhanced marquee for mission updates */
+    .marquee {
+      background: linear-gradient(90deg, 
+        rgba(255, 140, 0, 0.1) 0%, 
+        rgba(255, 165, 0, 0.2) 50%, 
+        rgba(255, 140, 0, 0.1) 100%) !important;
+      border: 1px solid rgba(255, 165, 0, 0.3) !important;
+      border-radius: 6px !important;
+      padding: 4px 8px !important;
+      color: #ffa500 !important;
+      font-weight: 600 !important;
+      text-shadow: 0 0 8px rgba(255, 165, 0, 0.4) !important;
+    }
+    
+    /* Footer styling */
+    footer {
+      color: rgba(255, 255, 255, 0.5) !important;
+      font-family: 'Orbitron', monospace !important;
+      font-weight: 400 !important;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.2) !important;
+    }
+    
+    /* Holographic effects for playing state */
+    body.playing {
+      animation: cosmicMove 20s ease infinite, starField 30s linear infinite, holoShift 6s ease-in-out infinite !important;
+    }
+    
+    @keyframes holoShift {
+      0% { filter: hue-rotate(0deg) saturate(1); }
+      33% { filter: hue-rotate(15deg) saturate(1.2); }
+      66% { filter: hue-rotate(-10deg) saturate(1.1); }
+      100% { filter: hue-rotate(0deg) saturate(1); }
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 32, 64, 0.3);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #0ea5e9, #ffa500);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #38bdf8, #ffb347);
+    }
+    
+    /* Pulsing effect for active elements */
+    .bg-\[\#111827\].active {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 191, 255, 0.4); }
+      70% { box-shadow: 0 0 0 20px rgba(0, 191, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 191, 255, 0); }
+    }
+  </style>
+  <!-- ===== END NASA THEME STYLES ===== -->
+
+  <!-- ======= BANK THEME STYLES (tambahan, tidak mengubah kode asli) ======= -->
+  <style id="bank-theme">
+    /* Override background to bank blue gradient */
+    body {
+      background: linear-gradient(135deg,#003366 0%, #0057b7 100%);
+    }
+    /* Card colour tweak */
+    .bg-\[\#111827\] {
+      background-color: rgba(255,255,255,0.06) !important;
+    }
+    /* Login button primary */
+    .btn-primary {
+      background-color:#0ea5e9;
+    }
+    .btn-primary:hover {
+      background-color:#22d3ee;
+    }
+    /* Hide non‑bank elements (note & marquee) visually */
+    .note-section, .marquee { display:none !important; }
+  </style>
+  <!-- ===== END BANK THEME STYLES ===== -->
+</head>
+<body class="bg-[#0f172a] min-h-screen flex flex-col justify-between text-gray-300">
+  <div class="p-5 max-w-md mx-auto w-full">
+    <div class="bg-[#111827] rounded-xl p-6 space-y-4">
+      <div class="flex justify-between items-start">
+        <h1 class="text-sky-500 text-xl font-semibold flex items-center gap-2">
+          <i class="fas fa-rocket"></i> NASA MISSION CONTROL
+        </h1>
+        <button
+          class="bg-red-600 text-white text-sm font-semibold px-4 py-1 rounded-md"
+          type="button"
+        >
+          ABORT
+        </button>
+      </div>
+      <input
+        type="text"
+        placeholder="Enter Satellite Coordinates (+LAT, +LON)"
+        class="w-full rounded-md border-2 border-yellow-400 bg-[#111827] text-gray-400 placeholder-gray-400 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+      />
+      <div class="flex justify-center gap-4">
+        <button
+          class="bg-sky-600 text-white rounded-md px-3 py-1.5 text-sm font-medium"
+          type="button"
+        >
+          ORBIT
+        </button>
+        <button
+          class="bg-sky-600 text-white rounded-md px-3 py-1.5 text-sm font-medium"
+          type="button"
+        >
+          DEPLOY
+        </button>
+        <button
+          class="bg-sky-600 text-white rounded-md px-3 py-1.5 text-sm font-medium"
+          type="button"
+        >
+          SYNC
+        </button>
+      </div>
+      <div class="text-center text-gray-200 text-sm font-semibold space-y-1">
+        <p>
+          <span class="font-bold">MISSION STATUS:</span> ACTIVE
+        </p>
+        <p>
+          <span class="font-bold">HOUSTON:</span> All Systems Go
+        </p>
+      </div>
+    </div>
+
+    <div class="bg-[#111827] rounded-xl p-6 mt-6 text-gray-300 text-sm leading-relaxed note-section">
+      <p class="font-semibold mb-2">MISSION BRIEFING:</p>
+      <p class="mb-4">
+        This system is provided for educational, research, and internal mission testing purposes only.
+      </p>
+      <p class="mb-4">
+        NASA Mission Control and system providers are not responsible for any misuse of this technology.
+      </p>
+      <p class="mb-4">
+        Unauthorized use for illegal activities, harm to others, or violation of space treaties is strictly prohibited.
+      </p>
+      <p>
+        Use responsibly, ethically, and with full accountability to humanity and space exploration.
+      </p>
+    </div>
+  </div>
+
+  <footer class="text-center text-gray-500 text-xs py-4 select-none">
+    © NASA Mission Control • Houston, We Have Success
+  </footer>
+
+  <!-- Audio autoplay -->
+  <audio id="bg-audio" autoplay loop>
+    <source src="https://files.catbox.moe/f24r1s.MP3" type="audio/mpeg" />
+    Your browser does not support space audio transmission.
+  </audio>
+
+  <!-- ======= EXTRA SCRIPTS (tidak mengubah script asli) ======= -->
+  <script>
+    // Menambahkan marquee secara dinamis tanpa mengubah HTML asli
+    window.addEventListener('load', () => {
+      // Tambahkan marquee ke dalam section info
+      const infoContainer = document.querySelector('.text-center.text-gray-200');
+      if (infoContainer) {
+        const marquee = document.createElement('div');
+        marquee.className = 'marquee mt-2 text-yellow-400 text-xs';
+        marquee.innerHTML = '<span>🚀 MISSION STABLE • 🌌 SYSTEMS OPERATIONAL • ⭐ EXPLORING THE COSMOS WITH RESPONSIBILITY! </span>';
+        infoContainer.appendChild(marquee);
+      }
+
+      // Audio play handling + kelas playing
+      const audio = document.getElementById('bg-audio');
+      audio.volume = 1.0;
+
+      function tryPlayAudio() {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              document.body.classList.add('playing');
+              // Add pulsing effect to main card
+              document.querySelectorAll('.bg-\\[\\#111827\\]').forEach(card => {
+                card.classList.add('active');
+              });
+            })
+            .catch(() => setTimeout(tryPlayAudio, 1000));
+        }
+      }
+
+      tryPlayAudio();
+
+      // Add interactive hover effects
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('mouseenter', () => {
+          button.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        button.addEventListener('mouseleave', () => {
+          button.style.transform = 'translateY(0) scale(1)';
+        });
+      });
+
+      // Add click effects
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => {
+          button.style.transform = 'translateY(1px) scale(0.98)';
+          setTimeout(() => {
+            button.style.transform = 'translateY(-2px) scale(1.05)';
+          }, 150);
+        });
+      });
+    });
+  </script>
+  <!-- ===== END EXTRA SCRIPTS ===== -->
+
+  <!-- ======= BANK LOGIN SCRIPT (tambahan, tidak mengubah script asli) ======= -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      // Ubah judul dan header menjadi tema bank
+      document.title = 'LAPORAN KEUANGAN HARI INI Banking';
+      const h1 = document.querySelector('h1');
+      if(h1){
+        h1.innerHTML = '<i class="fas fa-university"></i> LAPORAN KEUANGAN HARI INI';
+      }
+
+      // Ganti placeholder input pertama & tambahkan password field
+      const input1 = document.querySelector('input[type="text"]');
+      if(input1){
+        input1.placeholder = 'User ID / Nomor Rekening';
+      }
+      if(input1 && !document.getElementById('password-field')){
+        const pass = document.createElement('input');
+        pass.type = 'password';
+        pass.id = 'password-field';
+        pass.placeholder = 'Password';
+        pass.className = 'w-full rounded-md border-2 border-yellow-400 bg-[#111827] text-gray-400 placeholder-gray-400 px-3 py-2 mt-2 focus:outline-none focus:ring-2 focus:ring-yellow-400';
+        input1.parentNode.insertBefore(pass, input1.nextSibling);
+      }
+
+      // Sesuaikan tombol: Jadikan tombol pertama sebagai Login, sembunyikan lainnya
+      const buttons = document.querySelectorAll('.flex.justify-center button');
+      if(buttons.length){
+        buttons.forEach((btn,index)=>{
+          if(index===0){
+            btn.textContent='Login';
+            btn.classList.remove('bg-sky-600');
+            btn.classList.add('bg-green-600','btn-primary');
+          } else {
+            btn.style.display='none';
+          }
+        });
+      }
+
+      // Sembunyikan status dan info label agar lebih clean
+      const statusInfo = document.querySelector('.text-center.text-gray-200');
+      if(statusInfo){ statusInfo.style.display='none'; }
+    });
+  </script>
+  <!-- ===== END BANK LOGIN SCRIPT ===== -->
+
+  <!-- ======= ORIGINAL SCRIPT (TIDAK DIUBAH) ======= -->
+  <script>
+    const audio = document.getElementById('bg-audio');
+    audio.volume = 1.0;
+
+    function tryPlayAudio() {
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Audio berhasil diputar
+          })
+          .catch(() => {
+            // Gagal, coba lagi setelah 1 detik
+            setTimeout(tryPlayAudio, 1000);
+          });
+      }
+    }
+
+    window.addEventListener('load', () => {
+      tryPlayAudio();
+    });
+  </script>
+  <!-- ===== END ORIGINAL SCRIPT ===== -->
+</body>
+</html>
